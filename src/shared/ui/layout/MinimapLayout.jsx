@@ -33,9 +33,9 @@ const MinimapLayout = ({ children }) => {
             <style>
               {`  
                   .bg {
-                    stroke: ${strokeColor};
-                    fill: ${backgroundColor};
-                  }
+  stroke: ${strokeColor};
+  fill: transparent;
+}
                   .map-groups-stairs {
                     fill: ${useColorModeValue("#ffffff", "#1a202c")};
                     pointer-events: none;
