@@ -1,14 +1,55 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Sidebar, Search, FloorOption } from "../components";
 import { MapContext } from "../shared";
 import ShowIOS from "./ShowIOS";
 import Show from "./Show";
 
 const Home = ({ isIOS }) => {
-  const { selectedBlockOption, selectedFloorOption } = useContext(MapContext);
+  const {
+    selectedBlockOption,
+    selectedFloorOption,
+    setSelectedBlockOption,
+    setSelectedFloorOption,
+  } = useContext(MapContext);
+
+  useEffect(() => {
+    window.setAtlasSection = (sectionKey) => {
+      const match = sectionKey.match(/^(first|second|third)(C1\.1|C1\.2|C1\.3)$/);
+
+      if (!match) return;
+
+      const floor = match[1];
+      const block = match[2];
+
+      setSelectedFloorOption(floor);
+      setSelectedBlockOption(block);
+
+      document.title = `atlas:${sectionKey}`;
+    };
+
+    window.testAtlasLoaded = "YES";
+
+    return () => {
+      delete window.setAtlasSection;
+    };
+  }, [setSelectedBlockOption, setSelectedFloorOption]);
 
   return (
     <>
+      <div
+        style={{
+          position: "fixed",
+          top: 6,
+          right: 10,
+          zIndex: 9999,
+          color: "red",
+          fontSize: "12px",
+          fontWeight: 700,
+        }}
+      >
+        {selectedFloorOption + selectedBlockOption}
+      </div>
+
       <FloorOption />
       <Search />
       <Sidebar />

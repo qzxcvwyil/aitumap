@@ -1,5 +1,23 @@
-import { createContext } from 'react';
+import { createContext, useState } from "react";
 
-const MapContext = createContext();
+export const MapContext = createContext();
 
-export { MapContext };
+const MapProvider = ({ children }) => {
+  const [selectedBlockOption, setSelectedBlockOption] = useState("C1.1");
+  const [selectedFloorOption, setSelectedFloorOption] = useState("first");
+
+  return (
+    <MapContext.Provider
+      value={{
+        selectedBlockOption,
+        setSelectedBlockOption,
+        selectedFloorOption,
+        setSelectedFloorOption,
+      }}
+    >
+      {children}
+    </MapContext.Provider>
+  );
+};
+
+export default MapProvider;
