@@ -33,9 +33,9 @@ const MinimapMiddleLayout = ({ children }) => {
             <style>
               {`  
                   .bg {
-  stroke: ${strokeColor};
-  fill: transparent;
-}
+                    stroke: ${strokeColor};
+                    fill: ${backgroundColor};
+                  }
                   .map-groups-stairs {
                     fill: ${useColorModeValue("#ffffff", "#1a202c")};
                     pointer-events: none;
@@ -158,13 +158,13 @@ const MinimapMiddleLayout = ({ children }) => {
                     fill: ${backgroundColor};
                   }
                   .map-groups-void path,
-.map-groups-void polyline,
-.map-groups-void polygon,
-.map-groups-void rect,
-.map-groups-void line {
-  stroke:${strokeColor};
-  fill: transparent;
-}
+                  .map-groups-void polyline,
+                  .map-groups-void polygon,
+                  .map-groups-void rect,
+                  .map-groups-void line {
+                    stroke:${strokeColor};
+                    fill: ${useColorModeValue("#ffffff", "#1a202c")};
+                  }
                   .map-groups-coworking-atameken path,
                   .map-groups-coworking-atameken polygon, 
                   .map-groups-coworking-atameken polyline {
