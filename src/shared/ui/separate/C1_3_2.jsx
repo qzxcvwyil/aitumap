@@ -1,10 +1,10 @@
 import ICONS_C1_3 from "../general/minimap/ICONS_C1_3";
 import WALLPAPER_C1_3 from "../general/minimap/WALLPAPER_C1_3";
-import { LayoutMinimap } from "../layout";
+import { LayoutMinimapMiddle } from "../layout";
 
 const C1_3_2 = () => {
   return (
-    <LayoutMinimap>
+    <LayoutMinimapMiddle>
       <WALLPAPER_C1_3 />
       <g id="BLOCKS">
         <g id="C3">
@@ -322,7 +322,7 @@ const C1_3_2 = () => {
         </g>
       </g>
       <ICONS_C1_3 isSecond />
-    </LayoutMinimap>
+    </LayoutMinimapMiddle>
   );
 };
 
