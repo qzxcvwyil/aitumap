@@ -5,12 +5,7 @@ import { useContext } from "react";
 
 const MinimapLayout = ({ children }) => {
   const { height, width } = useWindowDimensions();
-  const backgroundColorPrimary = "#363636ff";
-  const backgroundColorSecondary = "#4e4e4eff";
-  const backgroundColor = useColorModeValue(
-    backgroundColorSecondary,
-    backgroundColorPrimary
-  );
+  const backgroundColor = "transparent";
   const strokeColorLight = "#7f7f7f";
   const strokeColorDark = "#7f7f7f";
   const strokeColor = useColorModeValue(strokeColorLight, strokeColorDark);

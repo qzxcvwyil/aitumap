@@ -28,19 +28,7 @@ const Home = ({ isIOS }) => {
 
   return (
     <>
-      <div
-        style={{
-          position: "fixed",
-          top: 6,
-          right: 10,
-          zIndex: 9999,
-          color: "red",
-          fontSize: "12px",
-          fontWeight: 700,
-        }}
-      >
-        {selectedSection}
-      </div>
+      
 
       {isIOS ? (
         <ShowIOS selectedFloorBlockOption={selectedSection} />
