@@ -1,43 +1,30 @@
-import { useContext, useEffect, useState } from "react";
-import { Sidebar, Search, FloorOption } from "../components";
-import { MapContext } from "../shared";
+import { useMemo } from "react";
 import ShowIOS from "./ShowIOS";
 import Show from "./Show";
 
+const allowedSections = [
+  "firstC1.1",
+  "firstC1.2",
+  "firstC1.3",
+  "secondC1.1",
+  "secondC1.2",
+  "secondC1.3",
+  "thirdC1.1",
+  "thirdC1.2",
+  "thirdC1.3",
+];
+
 const Home = ({ isIOS }) => {
-  const { selectedBlockOption, selectedFloorOption } = useContext(MapContext);
+  const selectedSection = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const section = params.get("section");
 
-  // Главный фикс: отдельное состояние только для Flutter
-  const [forcedSelection, setForcedSelection] = useState("firstC1.1");
+    if (section && allowedSections.includes(section)) {
+      return section;
+    }
 
-  useEffect(() => {
-    window.setAtlasSection = (sectionKey) => {
-      const allowed = [
-        "firstC1.1",
-        "firstC1.2",
-        "firstC1.3",
-        "secondC1.1",
-        "secondC1.2",
-        "secondC1.3",
-        "thirdC1.1",
-        "thirdC1.2",
-        "thirdC1.3",
-      ];
-
-      if (!allowed.includes(sectionKey)) return;
-
-      setForcedSelection(sectionKey);
-      document.title = `forced:${sectionKey}`;
-      console.log("FORCED SECTION:", sectionKey);
-    };
-
-    return () => {
-      delete window.setAtlasSection;
-    };
+    return "firstC1.1";
   }, []);
-
-  const currentSelection =
-      forcedSelection || (selectedFloorOption + selectedBlockOption);
 
   return (
     <>
@@ -52,15 +39,13 @@ const Home = ({ isIOS }) => {
           fontWeight: 700,
         }}
       >
-        {currentSelection}
+        {selectedSection}
       </div>
 
-      
-
       {isIOS ? (
-        <ShowIOS selectedFloorBlockOption={currentSelection} />
+        <ShowIOS selectedFloorBlockOption={selectedSection} />
       ) : (
-        <Show selectedFloorBlockOption={currentSelection} />
+        <Show selectedFloorBlockOption={selectedSection} />
       )}
     </>
   );
