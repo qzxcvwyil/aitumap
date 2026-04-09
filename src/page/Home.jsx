@@ -15,27 +15,28 @@ const allowedSections = [
 ];
 
 const Home = ({ isIOS }) => {
-  const selectedSection = useMemo(() => {
+  const { selectedSection, selectedRoom } = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const section = params.get("section");
+    const room = params.get("room");
 
-    if (section && allowedSections.includes(section)) {
-      return section;
-    }
-
-    return "firstC1.1";
+    return {
+      selectedSection:
+        section && allowedSections.includes(section) ? section : "firstC1.1",
+      selectedRoom: room ? room.toUpperCase() : null,
+    };
   }, []);
 
-  return (
-    <>
-      
-
-      {isIOS ? (
-        <ShowIOS selectedFloorBlockOption={selectedSection} />
-      ) : (
-        <Show selectedFloorBlockOption={selectedSection} />
-      )}
-    </>
+  return isIOS ? (
+    <Show
+      selectedFloorBlockOption={selectedSection}
+      selectedRoom={selectedRoom}
+    />
+  ) : (
+    <Show
+      selectedFloorBlockOption={selectedSection}
+      selectedRoom={selectedRoom}
+    />
   );
 };
 

@@ -1,8 +1,13 @@
 import ICONS_C1_2 from "../general/minimap/ICONS_C1_2";
 import WALLPAPER_C1_2 from "../general/minimap/WALLPAPER_C1_2";
+import { useEffect } from "react";
 import { LayoutMinimapMiddle } from "../layout";
+import { highlightRoomOnMap } from "../../util/highlightRoom";
 
-const C1_2_1 = () => {
+const C1_2_1 = ({ selectedRoom }) => {
+  useEffect(() => {
+    highlightRoomOnMap(selectedRoom);
+  }, [selectedRoom]);
   return (
     <LayoutMinimapMiddle>
       <WALLPAPER_C1_2 />
