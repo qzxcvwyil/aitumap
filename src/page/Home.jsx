@@ -1,47 +1,44 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Sidebar, Search, FloorOption } from "../components";
 import { MapContext } from "../shared";
 import ShowIOS from "./ShowIOS";
 import Show from "./Show";
 
 const Home = ({ isIOS }) => {
-  const {
-    selectedBlockOption,
-    selectedFloorOption,
-    setSelectedBlockOption,
-    setSelectedFloorOption,
-  } = useContext(MapContext);
+  const { selectedBlockOption, selectedFloorOption } = useContext(MapContext);
 
-useEffect(() => {
-  window.setAtlasSection = (sectionKey) => {
-    const match = sectionKey.match(/^(first|second|third)(C1\.1|C1\.2|C1\.3)$/);
+  // Главный фикс: отдельное состояние только для Flutter
+  const [forcedSelection, setForcedSelection] = useState("firstC1.1");
 
-    if (!match) return;
+  useEffect(() => {
+    window.setAtlasSection = (sectionKey) => {
+      const allowed = [
+        "firstC1.1",
+        "firstC1.2",
+        "firstC1.3",
+        "secondC1.1",
+        "secondC1.2",
+        "secondC1.3",
+        "thirdC1.1",
+        "thirdC1.2",
+        "thirdC1.3",
+      ];
 
-    const floor = match[1];
-    const block = match[2];
+      if (!allowed.includes(sectionKey)) return;
 
-    // 💥 убиваем любые сбросы
-    setTimeout(() => {
-      setSelectedFloorOption(floor);
-      setSelectedBlockOption(block);
-    }, 0);
+      setForcedSelection(sectionKey);
+      document.title = `forced:${sectionKey}`;
+      console.log("FORCED SECTION:", sectionKey);
+    };
 
-    setTimeout(() => {
-      setSelectedFloorOption(floor);
-      setSelectedBlockOption(block);
-    }, 100);
+    return () => {
+      delete window.setAtlasSection;
+    };
+  }, []);
 
-    setTimeout(() => {
-      setSelectedFloorOption(floor);
-      setSelectedBlockOption(block);
-    }, 300);
-  };
+  const currentSelection =
+      forcedSelection || (selectedFloorOption + selectedBlockOption);
 
-  return () => {
-    delete window.setAtlasSection;
-  };
-}, [setSelectedBlockOption, setSelectedFloorOption]);
   return (
     <>
       <div
@@ -55,20 +52,15 @@ useEffect(() => {
           fontWeight: 700,
         }}
       >
-        {selectedFloorOption + selectedBlockOption}
+        {currentSelection}
       </div>
 
-      <FloorOption />
-      <Search />
-      <Sidebar />
+      
+
       {isIOS ? (
-        <ShowIOS
-          selectedFloorBlockOption={selectedFloorOption + selectedBlockOption}
-        />
+        <ShowIOS selectedFloorBlockOption={currentSelection} />
       ) : (
-        <Show
-          selectedFloorBlockOption={selectedFloorOption + selectedBlockOption}
-        />
+        <Show selectedFloorBlockOption={currentSelection} />
       )}
     </>
   );
