@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/aitumap/static/js/main.6c94a775.js",
+    "main.js": "/aitumap/static/js/main.a8627d01.js",
     "index.html": "/aitumap/index.html",
-    "main.6c94a775.js.map": "/aitumap/static/js/main.6c94a775.js.map"
+    "main.a8627d01.js.map": "/aitumap/static/js/main.a8627d01.js.map"
   },
   "entrypoints": [
-    "static/js/main.6c94a775.js"
+    "static/js/main.a8627d01.js"
   ]
 }
