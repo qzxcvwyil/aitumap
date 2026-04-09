@@ -12,28 +12,36 @@ const Home = ({ isIOS }) => {
     setSelectedFloorOption,
   } = useContext(MapContext);
 
-  useEffect(() => {
-    window.setAtlasSection = (sectionKey) => {
-      const match = sectionKey.match(/^(first|second|third)(C1\.1|C1\.2|C1\.3)$/);
+useEffect(() => {
+  window.setAtlasSection = (sectionKey) => {
+    const match = sectionKey.match(/^(first|second|third)(C1\.1|C1\.2|C1\.3)$/);
 
-      if (!match) return;
+    if (!match) return;
 
-      const floor = match[1];
-      const block = match[2];
+    const floor = match[1];
+    const block = match[2];
 
+    // 💥 убиваем любые сбросы
+    setTimeout(() => {
       setSelectedFloorOption(floor);
       setSelectedBlockOption(block);
+    }, 0);
 
-      document.title = `atlas:${sectionKey}`;
-    };
+    setTimeout(() => {
+      setSelectedFloorOption(floor);
+      setSelectedBlockOption(block);
+    }, 100);
 
-    window.testAtlasLoaded = "YES";
+    setTimeout(() => {
+      setSelectedFloorOption(floor);
+      setSelectedBlockOption(block);
+    }, 300);
+  };
 
-    return () => {
-      delete window.setAtlasSection;
-    };
-  }, [setSelectedBlockOption, setSelectedFloorOption]);
-
+  return () => {
+    delete window.setAtlasSection;
+  };
+}, [setSelectedBlockOption, setSelectedFloorOption]);
   return (
     <>
       <div
