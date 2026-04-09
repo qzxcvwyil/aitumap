@@ -5,7 +5,7 @@ const MapProvider = ({ children }) => {
   const { width, height } = useWindowDimensions();
   const [search, setSearch] = useState("");
   const [selectedFloorOption, setSelectedFloorOption] = useState("first");
-  const [selectedBlockOption, setSelectedBlockOption] = useState("");
+const [selectedBlockOption, setSelectedBlockOption] = useState("C1.1");
   const [isKeyboardTyping, setIsKeyboardTyping] = useState(false);
   const [funMode, setFunMode] = useState(false);
   const floorOptionData = [
@@ -26,6 +26,7 @@ const MapProvider = ({ children }) => {
   const handleFloorOptionChange = (option) => {
     setSearch("");
     setSelectedFloorOption(option);
+    setSelectedBlockOption("");
   };
 
   const handleSearchInput = (e) => {
@@ -218,25 +219,27 @@ const MapProvider = ({ children }) => {
   }, [isKeyboardTyping, search, selectedBlockOption, selectedFloorOption]);
 
   return (
-    <MapContext.Provider
-      value={{
-        isKeyboardTyping,
-        selectedBlockOption,
-        handleBlockOptionChange,
-        search,
-        handleSearchInput,
-        selectedFloorOption,
-        width,
-        height,
-        floorOptionData,
-        handleFloorOptionClick,
-        setFunMode,
-        funMode,
-      }}
-    >
-      {children}
-    </MapContext.Provider>
-  );
+  <MapContext.Provider
+    value={{
+      isKeyboardTyping,
+      selectedBlockOption,
+      setSelectedBlockOption, // 💥 ДОБАВИТЬ
+      handleBlockOptionChange,
+      search,
+      handleSearchInput,
+      selectedFloorOption,
+      setSelectedFloorOption, // 💥 ДОБАВИТЬ
+      width,
+      height,
+      floorOptionData,
+      handleFloorOptionClick,
+      setFunMode,
+      funMode,
+    }}
+  >
+    {children}
+  </MapContext.Provider>
+);
 };
 
 export default MapProvider;
