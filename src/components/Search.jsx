@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -19,11 +19,37 @@ const Search = () => {
     handleSearchInput,
     width,
   } = useContext(MapContext);
+
+  const initializedRef = useRef(false);
+
   const colorBgSelect = useColorModeValue("#242a36cf", "#edf2f7d3");
   const colorSelect = useColorModeValue("#edf2f7", "#242a36");
   const colorInput = useColorModeValue("#edf2f7", "#242a36");
   const colorBgInput = useColorModeValue("#242a36", "#edf2f7");
   const colorInputPlaceholder = useColorModeValue("#edf2f7", "#242a366a");
+
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+
+    const params = new URLSearchParams(window.location.search);
+    const urlBlock = params.get("block");
+    const urlSearch = params.get("search");
+
+    if (urlBlock) {
+      handleBlockOptionChange({
+        target: { value: urlBlock.toUpperCase() },
+      });
+    }
+
+    if (urlSearch) {
+      setTimeout(() => {
+        handleSearchInput({
+          target: { value: urlSearch.toUpperCase() },
+        });
+      }, 150);
+    }
+  }, [handleBlockOptionChange, handleSearchInput]);
 
   return (
     <Flex
@@ -56,6 +82,7 @@ const Search = () => {
           C1.3
         </option>
       </Select>
+
       <InputGroup w={"180px"}>
         <Input
           borderEndRadius={9}
