@@ -144,11 +144,16 @@ const MinimapMiddleLayout = ({ children }) => {
                     fill: #fff;
                   }
                   .room-map-group-search-target,
-                  .room-map-group-search-target line,
-                  .room-map-group-search-target polygon,
-                  .room-map-group-search-target polyline {
-                    fill:#62cf6b !important;
-                  }
+.room-map-group-search-target line,
+.room-map-group-search-target polygon,
+.room-map-group-search-target polyline,
+.room-map-group-search-target rect,
+.room-map-group-search-target path {
+  fill: #ff6b6b !important;
+  stroke: #ffffff !important;
+  stroke-width: 1.4 !important;
+  opacity: 1 !important;
+}
                   .map-groups-walls path,
                   .map-groups-walls polyline,
                   .map-groups-walls polygon,
