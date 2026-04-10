@@ -3,11 +3,11 @@ import { LayoutMinimap } from "../layout";
 import { highlightRoomOnMap } from "../../util/highlightRoom";
 import WALLPAPER_C1_1 from "../general/minimap/WALLPAPER_C1_1";
 import ICONS_C1_1 from "../general/minimap/ICONS_C1_1";
-import { attachExternalRoomSearch } from "../../util/externalRoomSearch";
-const C1_1_3 = () => {
+
+const C1_1_3 = ({ selectedRoom }) => {
   useEffect(() => {
-    attachExternalRoomSearch();
-  }, []);
+    highlightRoomOnMap(selectedRoom);
+  }, [selectedRoom]);
   return (
     <LayoutMinimap>
       <WALLPAPER_C1_1 />
